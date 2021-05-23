@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Absensi QRCode</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="absen_siswa">Absen Siswa</string>
+    <string name="selesai">Selesai</string>
+</resources>
