@@ -1,18 +1,21 @@
 package com.ihfazh.absensiqrcode.ui.qrcodecamera
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.util.Rational
+import android.util.Size
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
+import androidx.camera.core.*
+import androidx.camera.core.impl.PreviewConfig
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -41,25 +44,26 @@ class CameraQrCodeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("RestrictedApi", "NewApi", "UnsafeExperimentalUsageError")
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener(
             {
                 val cameraProvider = cameraProviderFuture.get()
+
                 val preview = Preview.Builder()
                     .build()
                     .also {
                         it.setSurfaceProvider(binding.previewView.createSurfaceProvider())
                     }
 
-                imageCapture = ImageCapture.Builder().build()
-
                 val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
                 val imageAnalyzer = ImageAnalysis.Builder()
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .setTargetRotation(binding.previewView.display.rotation)
+                        .setTargetResolution(Size(200, 200))
                     .build()
+
                 imageAnalyzer.setAnalyzer(cameraExecutor, QrCodeAnalysis(object :
                     QrCodeAnalysis.QRCodeListener {
                     override fun setResult(barcode: Barcode) {
@@ -67,11 +71,26 @@ class CameraQrCodeFragment : Fragment() {
                         viewModel.result.value = barcode.rawValue
                     }
                 }))
+
+                val viewPort = ViewPort.Builder(Rational(200, 200), binding.previewView.display.rotation)
+                        .setScaleType(ViewPort.FIT_CENTER)
+                        .build()
+
+
+                val useCaseGroup = UseCaseGroup.Builder()
+                        .addUseCase(preview)
+                        .addUseCase(imageAnalyzer)
+                        .setViewPort(viewPort)
+                        .build()
+
                 try {
                     cameraProvider.unbindAll()
                     cameraProvider.bindToLifecycle(
-                        this, cameraSelector, preview, imageCapture, imageAnalyzer
+                        this, cameraSelector, useCaseGroup
                     )
+//                    cameraProvider.bindToLifecycle(
+//                            this, cameraSelector, preview, imageAnalyzer
+//                    )
                 } catch (e: Exception) {
                     Log.e(TAG, "Usecase binding failed", e)
                 }
