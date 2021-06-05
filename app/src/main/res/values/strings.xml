@@ -6,4 +6,8 @@
     <string name="selesai">Selesai</string>
     <string name="student">Student</string>
     <string name="event">Event</string>
+    <string name="full_name">Full Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
 </resources>
