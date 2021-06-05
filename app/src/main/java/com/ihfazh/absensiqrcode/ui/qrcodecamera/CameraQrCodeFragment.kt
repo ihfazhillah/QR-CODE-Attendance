@@ -125,7 +125,7 @@ class CameraQrCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.result.observe(requireActivity()){
+        viewModel.result.observe(viewLifecycleOwner){
             if (it != null){
                 binding.bottomSheet.result.text = it
             } else {
