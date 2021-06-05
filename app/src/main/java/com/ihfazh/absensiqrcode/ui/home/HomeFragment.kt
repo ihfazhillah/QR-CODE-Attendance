@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.navigation.findNavController
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentHomeBinding
@@ -18,6 +19,23 @@ class HomeFragment : Fragment() {
         binding.btnAbsen.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCameraQrCodeFragment()
             view.findNavController().navigate(action)
+        }
+
+        binding.fab.setOnClickListener{
+            PopupMenu(this.context, it).apply {
+                setOnMenuItemClickListener { menuItem ->
+                    val id = menuItem.itemId
+                    when(id){
+                       R.id.add_student -> {
+                           val action = HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
+                           view.findNavController().navigate(action)
+                       }
+                    }
+                    true
+                }
+                inflate(R.menu.add_menu)
+                show()
+            }
         }
     }
 

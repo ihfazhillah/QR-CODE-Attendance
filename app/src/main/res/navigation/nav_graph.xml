@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_cameraQrCodeFragment"
             app:destination="@id/cameraQrCodeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addStudentFragment"
+            app:destination="@id/addStudentFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraQrCodeFragment"
@@ -25,5 +28,14 @@
             app:destination="@id/homeFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStudentFragment"
+        android:name="com.ihfazh.absensiqrcode.ui.addstudent.AddStudentFragment"
+        android:label="fragment_add_student"
+        tools:layout="@layout/fragment_add_student" >
+        <action
+            android:id="@+id/action_addStudentFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
