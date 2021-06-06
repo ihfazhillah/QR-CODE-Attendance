@@ -35,6 +35,7 @@ class ListEventFragment : Fragment() {
         viewModel.list().observe(viewLifecycleOwner){
             adapter.submitData(lifecycle, it)
         }
+
     }
 
     companion object {
