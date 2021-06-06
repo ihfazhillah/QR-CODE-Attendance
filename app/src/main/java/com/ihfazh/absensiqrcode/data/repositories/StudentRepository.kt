@@ -1,10 +1,12 @@
 package com.ihfazh.absensiqrcode.data.repositories
 
-import androidx.paging.*
+import Event.Student
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.rxjava2.flowable
 import com.ihfazh.absensiqrcode.data.local.LocalDataSource
 import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
-import Event.Student
 import com.ihfazh.absensiqrcode.domains.students.repositories.IStudentRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -37,4 +39,11 @@ class StudentRepository @Inject constructor(
             }.asPagingSourceFactory(Dispatchers.IO)
         ).flowable
     }
+
+    override fun detail(studentId: String): Flowable<Student> {
+        return localDataSource.detailStudent(studentId).map {
+            Student(it.studentId, it.firstName, it.lastName)
+        }
+    }
+
 }

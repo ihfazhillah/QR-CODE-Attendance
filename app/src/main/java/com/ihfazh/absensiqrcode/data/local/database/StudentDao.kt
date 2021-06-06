@@ -4,6 +4,7 @@ import androidx.paging.DataSource
 import androidx.room.*
 import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 
 @Dao
 interface StudentDao {
@@ -15,4 +16,7 @@ interface StudentDao {
 
     @Query("SELECT * from student")
     fun list(): DataSource.Factory<Int, StudentEntity>
+
+    @Query("SELECT * from student where studentId = :studentId")
+    fun detail(studentId: String): Flowable<StudentEntity>
 }
