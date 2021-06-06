@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addEventFragment"
             app:destination="@id/addEventFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listEventFragment"
+            app:destination="@id/listEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraQrCodeFragment"
@@ -54,4 +57,9 @@
         android:name="com.ihfazh.absensiqrcode.ui.addevent.AddEventFragment"
         android:label="fragment_add_event"
         tools:layout="@layout/fragment_add_event" />
+    <fragment
+        android:id="@+id/listEventFragment"
+        android:name="com.ihfazh.absensiqrcode.ui.listevent.ListEventFragment"
+        android:label="fragment_list_event"
+        tools:layout="@layout/fragment_list_event" />
 </navigation>

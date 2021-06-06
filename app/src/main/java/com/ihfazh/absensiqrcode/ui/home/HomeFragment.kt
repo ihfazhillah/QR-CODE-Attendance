@@ -2,8 +2,8 @@ package com.ihfazh.absensiqrcode.ui.home
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentHomeBinding
@@ -57,8 +57,12 @@ class HomeFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.student_list -> view?.findNavController()?.navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
+        view?.let {
+            when(item.itemId) {
+                R.id.student_list -> it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
+                R.id.event_list -> it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToListEventFragment())
+            }
+
         }
         return true
     }
