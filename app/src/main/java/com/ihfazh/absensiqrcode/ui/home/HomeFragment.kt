@@ -52,6 +52,13 @@ class HomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.student_list -> view?.findNavController()?.navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
+        }
+        return true
+    }
+
     companion object {
         const val TAG = "HomeFragment"
     }

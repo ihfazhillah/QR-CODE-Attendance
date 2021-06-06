@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addStudentFragment"
             app:destination="@id/addStudentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listStudentFragment2"
+            app:destination="@id/listStudentFragment2" />
     </fragment>
     <fragment
         android:id="@+id/cameraQrCodeFragment"
@@ -38,4 +41,9 @@
             android:id="@+id/action_addStudentFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/listStudentFragment2"
+        android:name="com.ihfazh.absensiqrcode.ui.liststudents.ListStudentFragment"
+        android:label="fragment_list_student"
+        tools:layout="@layout/fragment_list_student" />
 </navigation>
