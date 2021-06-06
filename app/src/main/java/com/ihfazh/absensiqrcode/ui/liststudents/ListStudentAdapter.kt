@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.absensiqrcode.databinding.SimpleListItemBinding
-import com.ihfazh.absensiqrcode.domains.students.models.Student
+import Event.Student
 
 class ListStudentAdapter: PagingDataAdapter<Student, ListStudentAdapter.StudentItemViewHolder>(DIFF_CALLBACK) {
     companion object {

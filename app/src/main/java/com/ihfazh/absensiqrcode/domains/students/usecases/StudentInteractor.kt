@@ -1,10 +1,9 @@
 package com.ihfazh.absensiqrcode.domains.students.usecases
 
-import androidx.paging.PagedList
-import com.ihfazh.absensiqrcode.domains.students.models.Student
+import Event.Student
+import com.ihfazh.absensiqrcode.domains.events.repositories.IEventRepository
 import com.ihfazh.absensiqrcode.domains.students.repositories.IStudentRepository
 import io.reactivex.Completable
-import io.reactivex.Flowable
 
 class StudentInteractor(private val repository: IStudentRepository): StudentUseCase {
     override fun add(student: Student): Completable {

@@ -1,7 +1,7 @@
 package com.ihfazh.absensiqrcode.domains.students.repositories
 
 import androidx.paging.PagingData
-import com.ihfazh.absensiqrcode.domains.students.models.Student
+import Event.Student
 import io.reactivex.Completable
 import io.reactivex.Flowable
 

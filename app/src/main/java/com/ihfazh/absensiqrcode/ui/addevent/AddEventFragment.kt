@@ -9,18 +9,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentAddEventBinding
+import com.ihfazh.absensiqrcode.domains.events.models.Event
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import com.jakewharton.rxbinding2.widget.RxTextView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
 import java.util.*
 
+@AndroidEntryPoint
 class AddEventFragment : DisposableFragment() {
     private lateinit var binding : FragmentAddEventBinding
-
+    private val viewModel: AddEventViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,7 +111,23 @@ class AddEventFragment : DisposableFragment() {
     }
 
     private fun saveEvent() {
-        Log.d(TAG, "Event save.....")
+        val disposable = viewModel.addEvent(
+            Event(
+                UUID.randomUUID().toString(),
+                binding.etTitle.text.toString(),
+                binding.etDescription.text.toString(),
+                "${binding.etDate.text.toString()} ${binding.etTime.text.toString()}",
+            )
+        ).subscribe({
+            view?.findNavController()?.navigateUp()
+        }){
+            Log.e(TAG, "Something wrong with add event", it)
+            Toast.makeText(requireContext(), "Something wrong with add event", Toast.LENGTH_SHORT).show()
+        }
+
+        compositeDisposable.add(disposable)
+
+
     }
 
     companion object {

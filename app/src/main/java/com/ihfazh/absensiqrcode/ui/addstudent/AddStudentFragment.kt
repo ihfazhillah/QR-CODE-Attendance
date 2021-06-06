@@ -2,29 +2,20 @@ package com.ihfazh.absensiqrcode.ui.addstudent
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.MainThread
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.absensiqrcode.databinding.FragmentAddStudentBinding
-import com.ihfazh.absensiqrcode.domains.students.models.Student
+import Event.Student
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.Disposables
-import io.reactivex.internal.disposables.DisposableContainer
-import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 @AndroidEntryPoint

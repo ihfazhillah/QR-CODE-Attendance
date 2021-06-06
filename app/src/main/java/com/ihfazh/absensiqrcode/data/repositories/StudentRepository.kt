@@ -4,7 +4,7 @@ import androidx.paging.*
 import androidx.paging.rxjava2.flowable
 import com.ihfazh.absensiqrcode.data.local.LocalDataSource
 import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
-import com.ihfazh.absensiqrcode.domains.students.models.Student
+import Event.Student
 import com.ihfazh.absensiqrcode.domains.students.repositories.IStudentRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
