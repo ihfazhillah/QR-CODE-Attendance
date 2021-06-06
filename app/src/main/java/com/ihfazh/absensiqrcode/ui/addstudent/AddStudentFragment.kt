@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.absensiqrcode.databinding.FragmentAddStudentBinding
 import com.ihfazh.absensiqrcode.domains.students.models.Student
+import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -27,9 +28,8 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 @AndroidEntryPoint
-class AddStudentFragment : Fragment() {
+class AddStudentFragment : DisposableFragment() {
     private lateinit var binding: FragmentAddStudentBinding
-    private val compositeDisposable = CompositeDisposable()
     private val viewModel: AddStudentViewModel by viewModels()
 
     @SuppressLint("CheckResult")
@@ -93,15 +93,5 @@ class AddStudentFragment : Fragment() {
 
     companion object {
         private const val TAG = "ADD STUDENT FRAGMENT"
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        compositeDisposable.clear()
     }
 }

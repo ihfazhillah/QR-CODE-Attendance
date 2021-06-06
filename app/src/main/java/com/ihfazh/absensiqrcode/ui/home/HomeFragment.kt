@@ -28,6 +28,10 @@ class HomeFragment : Fragment() {
                            val action = HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
                            view.findNavController().navigate(action)
                        }
+                        R.id.add_event -> {
+                            val action = HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
+                            view.findNavController().navigate(action)
+                        }
                     }
                     true
                 }

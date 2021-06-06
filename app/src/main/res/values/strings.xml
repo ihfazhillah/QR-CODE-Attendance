@@ -11,4 +11,8 @@
     <string name="save">Save</string>
     <string name="back">Back</string>
     <string name="students">Students</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 </resources>
