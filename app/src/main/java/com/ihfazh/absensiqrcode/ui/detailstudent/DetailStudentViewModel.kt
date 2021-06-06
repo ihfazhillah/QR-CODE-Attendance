@@ -7,7 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailStudentViewModel @Inject constructor(private val useCase: StudentUseCase): ViewModel() {
+class DetailStudentViewModel @Inject constructor(private val useCase: StudentUseCase) :
+    ViewModel() {
     fun getStudent(studentId: String) = LiveDataReactiveStreams.fromPublisher(
         useCase.detail(studentId)
     )

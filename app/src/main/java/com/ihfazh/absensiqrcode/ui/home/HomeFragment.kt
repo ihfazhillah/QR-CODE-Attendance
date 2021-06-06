@@ -19,17 +19,19 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        binding.fab.setOnClickListener{
+        binding.fab.setOnClickListener {
             PopupMenu(this.context, it).apply {
                 setOnMenuItemClickListener { menuItem ->
                     val id = menuItem.itemId
-                    when(id){
-                       R.id.add_student -> {
-                           val action = HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
-                           view.findNavController().navigate(action)
-                       }
+                    when (id) {
+                        R.id.add_student -> {
+                            val action =
+                                HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
+                            view.findNavController().navigate(action)
+                        }
                         R.id.add_event -> {
-                            val action = HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
+                            val action =
+                                HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
                             view.findNavController().navigate(action)
                         }
                     }
@@ -58,9 +60,11 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         view?.let {
-            when(item.itemId) {
-                R.id.student_list -> it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
-                R.id.event_list -> it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToListEventFragment())
+            when (item.itemId) {
+                R.id.student_list -> it.findNavController()
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
+                R.id.event_list -> it.findNavController()
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToListEventFragment())
             }
 
         }

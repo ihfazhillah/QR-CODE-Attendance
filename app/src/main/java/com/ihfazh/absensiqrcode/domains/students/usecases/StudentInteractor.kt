@@ -5,7 +5,7 @@ import com.ihfazh.absensiqrcode.domains.students.repositories.IStudentRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class StudentInteractor(private val repository: IStudentRepository): StudentUseCase {
+class StudentInteractor(private val repository: IStudentRepository) : StudentUseCase {
     override fun add(student: Student): Completable {
         return repository.add(student)
     }

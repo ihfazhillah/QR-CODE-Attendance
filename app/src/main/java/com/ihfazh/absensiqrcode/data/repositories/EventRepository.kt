@@ -1,6 +1,8 @@
 package com.ihfazh.absensiqrcode.data.repositories
 
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.rxjava2.flowable
 import com.ihfazh.absensiqrcode.data.local.LocalDataSource
 import com.ihfazh.absensiqrcode.data.local.entity.EventEntity
@@ -15,7 +17,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class EventRepository @Inject constructor(
     private val localDataSource: LocalDataSource
-): IEventRepository {
+) : IEventRepository {
     override fun add(event: Event): Completable {
         return localDataSource.addEvent(
             EventEntity(event.eventId, event.title, event.description, event.datetime)

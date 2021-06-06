@@ -15,19 +15,22 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class LocalModule {
-    private val migration1To2 = object: Migration(1, 2){
+    private val migration1To2 = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("""
+            database.execSQL(
+                """
                 CREATE TABLE event (
                     eventId TEXT PRIMARY KEY NOT NULL,
                     title TEXT NOT NULL,
                     description TEXT,
                     datetime TEXT NOT NULL
                 )
-            """.trimIndent())
+            """.trimIndent()
+            )
         }
 
     }
+
     @Singleton
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {

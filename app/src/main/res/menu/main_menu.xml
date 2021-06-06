@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ExtraText">
     <item
-        android:title="@string/students"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_users"
         android:id="@+id/student_list"
-        />
+        android:icon="@drawable/ic_users"
+        android:title="@string/students"
+        app:showAsAction="ifRoom" />
 
     <item
-        android:title="@string/events"
-        app:showAsAction="ifRoom"
         android:id="@+id/event_list"
         android:icon="@drawable/events"
-        />
+        android:title="@string/events"
+        app:showAsAction="ifRoom" />
 
 </menu>

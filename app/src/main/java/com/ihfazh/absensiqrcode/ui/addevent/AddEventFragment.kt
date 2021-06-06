@@ -5,26 +5,23 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentAddEventBinding
 import com.ihfazh.absensiqrcode.domains.events.models.Event
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
 import java.util.*
 
 @AndroidEntryPoint
 class AddEventFragment : DisposableFragment() {
-    private lateinit var binding : FragmentAddEventBinding
+    private lateinit var binding: FragmentAddEventBinding
     private val viewModel: AddEventViewModel by viewModels()
 
     override fun onCreateView(
@@ -39,15 +36,15 @@ class AddEventFragment : DisposableFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             view.findNavController().navigateUp()
         }
 
-        val titleStream = RxTextView.textChanges(binding.etTitle).map{
+        val titleStream = RxTextView.textChanges(binding.etTitle).map {
             it.toString().isNotEmpty()
         }
 
-        val dateStream = RxTextView.textChanges(binding.etDate).map{
+        val dateStream = RxTextView.textChanges(binding.etDate).map {
             it.toString().isNotEmpty()
         }
 
@@ -59,11 +56,11 @@ class AddEventFragment : DisposableFragment() {
             titleStream,
             dateStream,
             timeStream
-        ) {
-            title, date, time -> title && date && time
+        ) { title, date, time ->
+            title && date && time
         }
 
-        val disposable = invalidValue.subscribe{
+        val disposable = invalidValue.subscribe {
             binding.btnSave.isEnabled = it
         }
 
@@ -71,28 +68,28 @@ class AddEventFragment : DisposableFragment() {
 
         val cal = Calendar.getInstance()
         binding.etDate.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus){
+            if (hasFocus) {
                 DatePickerDialog(
                     requireContext(),
-                    {
-                            _, year, month, day ->  binding.etDate.setText("$year/$month/$day")
+                    { _, year, month, day ->
+                        binding.etDate.setText("$year/$month/$day")
 
-                    }
-                    ,
+                    },
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DATE)).apply {
+                    cal.get(Calendar.DATE)
+                ).apply {
                     show()
                 }
             }
         }
 
         binding.etTime.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus){
+            if (hasFocus) {
                 TimePickerDialog(
                     requireContext(),
-                    {
-                       _, hour, minute -> binding.etTime.setText("$hour:$minute")
+                    { _, hour, minute ->
+                        binding.etTime.setText("$hour:$minute")
                     },
                     cal.get(Calendar.HOUR),
                     cal.get(Calendar.MINUTE),
@@ -104,7 +101,7 @@ class AddEventFragment : DisposableFragment() {
             }
         }
 
-        binding.btnSave.setOnClickListener{
+        binding.btnSave.setOnClickListener {
             saveEvent()
         }
 
@@ -120,9 +117,10 @@ class AddEventFragment : DisposableFragment() {
             )
         ).subscribe({
             view?.findNavController()?.navigateUp()
-        }){
+        }) {
             Log.e(TAG, "Something wrong with add event", it)
-            Toast.makeText(requireContext(), "Something wrong with add event", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Something wrong with add event", Toast.LENGTH_SHORT)
+                .show()
         }
 
         compositeDisposable.add(disposable)

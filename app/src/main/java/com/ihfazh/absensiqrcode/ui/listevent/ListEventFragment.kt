@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ListEventFragment : Fragment() {
     private lateinit var binding: FragmentListEventBinding
-    private val viewModel : ListEventViewModel by viewModels()
+    private val viewModel: ListEventViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +27,12 @@ class ListEventFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ListEventAdapter()
-        with(binding.rvEvents){
+        with(binding.rvEvents) {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        viewModel.list().observe(viewLifecycleOwner){
+        viewModel.list().observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
 

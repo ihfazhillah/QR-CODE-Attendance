@@ -17,9 +17,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class InteractorModule {
     @ExperimentalCoroutinesApi
     @Provides
-    fun provideStudentUseCase(studentRepository: StudentRepository): StudentUseCase = StudentInteractor(studentRepository)
+    fun provideStudentUseCase(studentRepository: StudentRepository): StudentUseCase =
+        StudentInteractor(studentRepository)
 
     @ExperimentalCoroutinesApi
     @Provides
-    fun provideEventUseCase(eventRepository: EventRepository): EventUseCase = EventInteractor(eventRepository)
+    fun provideEventUseCase(eventRepository: EventRepository): EventUseCase =
+        EventInteractor(eventRepository)
 }

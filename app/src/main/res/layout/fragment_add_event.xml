@@ -1,64 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-tools:context=".ui.addevent.AddEventFragment">
-
-<com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/input_layout_title"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:hint="@string/title"
-    android:layout_margin="8dp"
-    >
-    <com.google.android.material.textfield.TextInputEditText
+    android:layout_height="match_parent"
+    tools:context=".ui.addevent.AddEventFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/et_title"
-        />
+        android:layout_margin="8dp"
+        android:hint="@string/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-<com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/input_layout_description"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/input_layout_title"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:hint="@string/description"
-    android:layout_margin="8dp"
-    >
-    <com.google.android.material.textfield.TextInputEditText
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/et_description"
-        android:minLines="5"
-        />
+        android:layout_margin="8dp"
+        android:hint="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_title">
 
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="5" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/date"
         android:layout_margin="8dp"
-        >
+        android:hint="@string/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_description">
+
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_date"
-            android:inputType="date"
-            />
+            android:inputType="date" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,42 +64,39 @@ tools:context=".ui.addevent.AddEventFragment">
         android:id="@+id/input_layout_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/time"
         android:layout_margin="8dp"
-        >
+        android:hint="@string/time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_date">
+
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_time"
-            android:inputType="time"
-            />
+            android:inputType="time" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/btn_save"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/btn_back"
-    android:layout_margin="8dp"
-    android:text="@string/save"
-    android:enabled="false"
-    />
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:enabled="false"
+        android:text="@string/save"
+        app:layout_constraintBottom_toTopOf="@id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/btn_back"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_margin="8dp"
-    android:text="@string/back"
-    />
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

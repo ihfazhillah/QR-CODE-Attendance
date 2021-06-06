@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.absensiqrcode.databinding.SimpleListItemBinding
 
-class ListStudentAdapter: PagingDataAdapter<Student, ListStudentAdapter.StudentItemViewHolder>(DIFF_CALLBACK) {
+class ListStudentAdapter :
+    PagingDataAdapter<Student, ListStudentAdapter.StudentItemViewHolder>(DIFF_CALLBACK) {
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Student>(){
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Student>() {
             override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
                 return oldItem.studentId == newItem.studentId
             }
@@ -27,7 +28,8 @@ class ListStudentAdapter: PagingDataAdapter<Student, ListStudentAdapter.StudentI
         fun onItemClicked(student: Student)
     }
 
-    class StudentItemViewHolder(val binding: SimpleListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class StudentItemViewHolder(val binding: SimpleListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Student?) {
             item?.let {
                 binding.itemText.text = it.firstName
@@ -40,7 +42,7 @@ class ListStudentAdapter: PagingDataAdapter<Student, ListStudentAdapter.StudentI
     override fun onBindViewHolder(holder: StudentItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-        holder.binding.root.setOnClickListener{
+        holder.binding.root.setOnClickListener {
             item?.let {
                 clickListener?.onItemClicked(it)
             }

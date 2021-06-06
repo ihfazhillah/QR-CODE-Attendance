@@ -29,8 +29,9 @@ class ListStudentFragment : Fragment(), ListStudentAdapter.OnStudentItemClicked 
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClicked(student: Student){
-        val action = ListStudentFragmentDirections.actionListStudentFragment2ToDetailStudentFragment(student.studentId)
+    override fun onItemClicked(student: Student) {
+        val action =
+            ListStudentFragmentDirections.actionListStudentFragment2ToDetailStudentFragment(student.studentId)
         requireView().findNavController().navigate(action)
     }
 
@@ -40,12 +41,12 @@ class ListStudentFragment : Fragment(), ListStudentAdapter.OnStudentItemClicked 
         val mAdapter = ListStudentAdapter().apply {
             clickListener = this@ListStudentFragment
         }
-        with(binding.rvStudents){
+        with(binding.rvStudents) {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
-        viewModel.getStudents().observe(viewLifecycleOwner){
+        viewModel.getStudents().observe(viewLifecycleOwner) {
             mAdapter.submitData(lifecycle, it)
         }
 
@@ -58,6 +59,6 @@ class ListStudentFragment : Fragment(), ListStudentAdapter.OnStudentItemClicked 
     }
 
     companion object {
-            const val TAG = "List Student View"
+        const val TAG = "List Student View"
     }
 }

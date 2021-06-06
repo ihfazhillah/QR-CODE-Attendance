@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.listevent.ListEventFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/simple_list_item"
-            android:id="@+id/rvEvents"
-            />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEvents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/simple_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

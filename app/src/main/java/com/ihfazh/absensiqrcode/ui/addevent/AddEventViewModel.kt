@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEventViewModel @Inject constructor(private val useCase: EventUseCase): ViewModel() {
+class AddEventViewModel @Inject constructor(private val useCase: EventUseCase) : ViewModel() {
     fun addEvent(event: Event) = useCase.add(event)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

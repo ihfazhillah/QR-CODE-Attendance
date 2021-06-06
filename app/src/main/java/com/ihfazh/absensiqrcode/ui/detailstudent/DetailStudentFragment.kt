@@ -36,16 +36,16 @@ class DetailStudentFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            viewModel.getStudent(args.studentId).observe(viewLifecycleOwner){
-                binding.qrcodeDetail.fullName.text = "${it.firstName} ${it.lastName}"
-                binding.qrcodeDetail.uuid.text = it.studentId
+        viewModel.getStudent(args.studentId).observe(viewLifecycleOwner) {
+            binding.qrcodeDetail.fullName.text = "${it.firstName} ${it.lastName}"
+            binding.qrcodeDetail.uuid.text = it.studentId
 
-                val code = "studentId#${it.studentId}"
-                Glide.with(this@DetailStudentFragment)
-                    .load(QRCode.from(code).bitmap())
-                    .into(binding.qrcodeDetail.qrcode)
+            val code = "studentId#${it.studentId}"
+            Glide.with(this@DetailStudentFragment)
+                .load(QRCode.from(code).bitmap())
+                .into(binding.qrcodeDetail.qrcode)
 
-                (activity as AppCompatActivity).supportActionBar?.title = it.firstName
+            (activity as AppCompatActivity).supportActionBar?.title = it.firstName
         }
     }
 

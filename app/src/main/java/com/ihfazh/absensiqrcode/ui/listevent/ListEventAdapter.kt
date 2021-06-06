@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.absensiqrcode.databinding.SimpleListItemBinding
 import com.ihfazh.absensiqrcode.domains.events.models.Event
 
-class ListEventAdapter: PagingDataAdapter<Event, ListEventAdapter.ListEventViewHolder>(DIFF_UTIL) {
+class ListEventAdapter : PagingDataAdapter<Event, ListEventAdapter.ListEventViewHolder>(DIFF_UTIL) {
 
     companion object {
-        val DIFF_UTIL = object: DiffUtil.ItemCallback<Event>(){
+        val DIFF_UTIL = object : DiffUtil.ItemCallback<Event>() {
             override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
                 return oldItem.eventId == newItem.eventId
             }
@@ -23,10 +23,11 @@ class ListEventAdapter: PagingDataAdapter<Event, ListEventAdapter.ListEventViewH
         }
     }
 
-    class ListEventViewHolder(private val binding: SimpleListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ListEventViewHolder(private val binding: SimpleListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: Event?) {
-            if (item != null){
+            if (item != null) {
                 binding.itemText.text = "Event: ${item.title} (${item.datetime})"
             }
         }

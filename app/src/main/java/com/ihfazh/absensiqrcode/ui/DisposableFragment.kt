@@ -3,7 +3,7 @@ package com.ihfazh.absensiqrcode.ui
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 
-open class DisposableFragment: Fragment() {
+open class DisposableFragment : Fragment() {
     val compositeDisposable = CompositeDisposable()
 
     override fun onDestroy() {

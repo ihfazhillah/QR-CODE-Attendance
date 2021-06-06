@@ -2,9 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Export All"
-        app:showAsAction="always"
         android:id="@+id/export_all"
-        />
+        android:title="Export All"
+        app:showAsAction="always" />
 
 </menu>

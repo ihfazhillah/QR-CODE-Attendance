@@ -10,7 +10,7 @@ import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
     version = 2,
     exportSchema = true
 )
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun studentDao(): StudentDao
     abstract fun eventDao(): EventDao
 }

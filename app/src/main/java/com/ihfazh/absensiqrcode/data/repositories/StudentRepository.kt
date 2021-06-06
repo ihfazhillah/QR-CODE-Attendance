@@ -17,7 +17,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class StudentRepository @Inject constructor(
     private val localDataSource: LocalDataSource
-): IStudentRepository {
+) : IStudentRepository {
     override fun add(student: Student): Completable {
         return localDataSource.addStudent(
             StudentEntity(student.studentId, student.firstName, student.lastName)

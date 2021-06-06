@@ -3,7 +3,6 @@ package com.ihfazh.absensiqrcode.data.local.database
 import androidx.paging.DataSource
 import androidx.room.*
 import com.ihfazh.absensiqrcode.data.local.entity.EventEntity
-import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
 import io.reactivex.Completable
 
 @Dao

@@ -7,13 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Rational
 import android.util.Size
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.mlkit.vision.barcode.Barcode
@@ -27,7 +29,7 @@ class CameraQrCodeFragment : Fragment() {
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     private lateinit var imageCapture: ImageCapture
     private lateinit var binding: FragmentCameraQrCodeBinding
-    private  val viewModel: QRCodeViewModel by viewModels()
+    private val viewModel: QRCodeViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -55,7 +57,7 @@ class CameraQrCodeFragment : Fragment() {
 
                 val imageAnalyzer = ImageAnalysis.Builder()
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                        .setTargetResolution(Size(200, 200))
+                    .setTargetResolution(Size(200, 200))
                     .build()
 
                 imageAnalyzer.setAnalyzer(cameraExecutor, QrCodeAnalysis(object :
@@ -66,16 +68,17 @@ class CameraQrCodeFragment : Fragment() {
                     }
                 }))
 
-                val viewPort = ViewPort.Builder(Rational(200, 200), binding.previewView.display.rotation)
+                val viewPort =
+                    ViewPort.Builder(Rational(200, 200), binding.previewView.display.rotation)
                         .setScaleType(ViewPort.FIT_CENTER)
                         .build()
 
 
                 val useCaseGroup = UseCaseGroup.Builder()
-                        .addUseCase(preview)
-                        .addUseCase(imageAnalyzer)
-                        .setViewPort(viewPort)
-                        .build()
+                    .addUseCase(preview)
+                    .addUseCase(imageAnalyzer)
+                    .setViewPort(viewPort)
+                    .build()
 
                 try {
                     cameraProvider.unbindAll()
@@ -95,7 +98,12 @@ class CameraQrCodeFragment : Fragment() {
     }
 
     private fun allPermissionGranted(): Boolean {
-        return REQUIRED_PERMISSIONS.all { ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED }
+        return REQUIRED_PERMISSIONS.all {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                it
+            ) == PackageManager.PERMISSION_GRANTED
+        }
     }
 
 
@@ -110,12 +118,17 @@ class CameraQrCodeFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CODE_PERMISSION){
-            if (allPermissionGranted()){
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            if (allPermissionGranted()) {
                 startCamera()
             } else {
-                Toast.makeText(requireActivity(), "Permissions not granted by the user.", Toast.LENGTH_LONG).show()
-                val action = CameraQrCodeFragmentDirections.actionCameraQrCodeFragmentToHomeFragment()
+                Toast.makeText(
+                    requireActivity(),
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_LONG
+                ).show()
+                val action =
+                    CameraQrCodeFragmentDirections.actionCameraQrCodeFragmentToHomeFragment()
                 requireView().findNavController().navigate(action)
             }
         }
@@ -125,8 +138,8 @@ class CameraQrCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.result.observe(viewLifecycleOwner){
-            if (it != null){
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (it != null) {
                 binding.bottomSheet.result.text = it
             } else {
                 binding.bottomSheet.result.text = "NO RESULT"
@@ -134,7 +147,7 @@ class CameraQrCodeFragment : Fragment() {
         }
 
 
-        if (allPermissionGranted()){
+        if (allPermissionGranted()) {
             startCamera()
         } else {
             ActivityCompat.requestPermissions(
@@ -147,9 +160,10 @@ class CameraQrCodeFragment : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        with(binding.bottomSheet){
+        with(binding.bottomSheet) {
             selesai.setOnClickListener {
-                val action = CameraQrCodeFragmentDirections.actionCameraQrCodeFragmentToHomeFragment()
+                val action =
+                    CameraQrCodeFragmentDirections.actionCameraQrCodeFragmentToHomeFragment()
                 view.findNavController().navigate(action)
 
             }

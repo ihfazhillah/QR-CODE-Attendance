@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.ihfazh.absensiqrcode.ui.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_cameraQrCodeFragment"
             app:destination="@id/cameraQrCodeFragment" />
@@ -19,38 +19,35 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_listStudentFragment2"
             app:destination="@id/listStudentFragment2"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_addEventFragment"
             app:destination="@id/addEventFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
+            android:id="@+id/action_homeFragment_to_listEventFragment"
+            app:destination="@id/listEventFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            android:id="@+id/action_homeFragment_to_listEventFragment"
-            app:destination="@id/listEventFragment" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/cameraQrCodeFragment"
         android:name="com.ihfazh.absensiqrcode.ui.qrcodecamera.CameraQrCodeFragment"
         android:label="QR CODE"
-        tools:layout="@layout/fragment_camera_qr_code" >
-        <deepLink app:uri="absensiqrcode://open_qrcode"/>
+        tools:layout="@layout/fragment_camera_qr_code">
+        <deepLink app:uri="absensiqrcode://open_qrcode" />
         <action
             android:id="@+id/action_cameraQrCodeFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -61,7 +58,7 @@
         android:id="@+id/addStudentFragment"
         android:name="com.ihfazh.absensiqrcode.ui.addstudent.AddStudentFragment"
         android:label="Add Student"
-        tools:layout="@layout/fragment_add_student" >
+        tools:layout="@layout/fragment_add_student">
         <action
             android:id="@+id/action_addStudentFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -70,7 +67,7 @@
         android:id="@+id/listStudentFragment2"
         android:name="com.ihfazh.absensiqrcode.ui.liststudents.ListStudentFragment"
         android:label="List Students"
-        tools:layout="@layout/fragment_list_student" >
+        tools:layout="@layout/fragment_list_student">
         <action
             android:id="@+id/action_listStudentFragment2_to_detailStudentFragment"
             app:destination="@id/detailStudentFragment" />
