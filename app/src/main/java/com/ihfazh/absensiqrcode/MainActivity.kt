@@ -20,6 +20,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import com.ihfazh.absensiqrcode.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.lang.Integer.max
 import java.util.concurrent.ExecutionException
@@ -28,6 +29,8 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.math.abs
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
