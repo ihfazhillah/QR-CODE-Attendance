@@ -4,6 +4,7 @@ import Event.Student
 import com.ihfazh.absensiqrcode.domains.students.repositories.IStudentRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 class StudentInteractor(private val repository: IStudentRepository) : StudentUseCase {
     override fun add(student: Student): Completable {
@@ -15,6 +16,9 @@ class StudentInteractor(private val repository: IStudentRepository) : StudentUse
     }
 
     override fun list() = repository.list()
+    override fun listAll(): Maybe<List<Student>> {
+        return repository.listAll()
+    }
 
     override fun detail(studentId: String): Flowable<Student> {
         return repository.detail(studentId)

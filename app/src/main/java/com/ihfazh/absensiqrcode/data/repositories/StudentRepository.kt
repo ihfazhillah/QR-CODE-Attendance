@@ -10,6 +10,7 @@ import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
 import com.ihfazh.absensiqrcode.domains.students.repositories.IStudentRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -43,6 +44,14 @@ class StudentRepository @Inject constructor(
     override fun detail(studentId: String): Flowable<Student> {
         return localDataSource.detailStudent(studentId).map {
             Student(it.studentId, it.firstName, it.lastName)
+        }
+    }
+
+    override fun listAll(): Maybe<List<Student>> {
+        return localDataSource.listAllStudents().map{ students ->
+            students.map {
+                Student(it.studentId, it.firstName, it.lastName)
+            }
         }
     }
 

@@ -1,18 +1,25 @@
 package com.ihfazh.absensiqrcode.ui.liststudents
 
 import Event.Student
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentListStudentBinding
+import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ListStudentFragment : Fragment(), ListStudentAdapter.OnStudentItemClicked {
+class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentItemClicked {
     private lateinit var binding: FragmentListStudentBinding
     private val viewModel: ListStudentViewModel by viewModels()
 
@@ -58,7 +65,61 @@ class ListStudentFragment : Fragment(), ListStudentAdapter.OnStudentItemClicked 
         inflater.inflate(R.menu.list_users_menu, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.export_all -> {
+                if (canSaveToStorage()){
+                    exportAllDataToCSV()
+                } else {
+                    requestPermissionLauncher.launch(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun exportAllDataToCSV() {
+        // run in the separated thread
+        Log.d(TAG, """
+        ${requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.path}
+        """.trimIndent())
+
+        requireContext().getExternalFilesDir(null)?.let{ downloadFile ->
+            val disposable = viewModel.exportStudentsData(downloadFile.path + "/testing.csv")
+            {
+                Log.d(TAG, "exportAllDataToCSV: COMPLET ")
+            }
+            compositeDisposable.add(disposable)
+        } ?: run{
+            Log.d(TAG, "exportAllDataToCSV: something wrong")
+        }
+
+    }
+
     companion object {
         const val TAG = "List Student View"
+        val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
+
+    private fun canSaveToStorage(): Boolean {
+        return REQUIRED_PERMISSIONS.all {
+            ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    it
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+    ){ isGranted ->
+        if (isGranted){
+            exportAllDataToCSV()
+        } else {
+            Toast.makeText(context, "Cannot save into storage, no permission", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

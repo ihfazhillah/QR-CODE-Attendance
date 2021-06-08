@@ -9,6 +9,7 @@ class LocalDataSource @Inject constructor(private val database: AppDatabase) {
     fun addStudent(studentEntity: StudentEntity) = database.studentDao().add(studentEntity)
     fun deleteStudent(studentEntity: StudentEntity) = database.studentDao().delete(studentEntity)
     fun listStudent() = database.studentDao().list()
+    fun listAllStudents() = database.studentDao().listAll()
     fun detailStudent(studentId: String) = database.studentDao().detail(studentId)
 
     // event

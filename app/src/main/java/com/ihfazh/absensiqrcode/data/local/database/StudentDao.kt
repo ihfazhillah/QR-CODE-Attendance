@@ -5,6 +5,7 @@ import androidx.room.*
 import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 @Dao
 interface StudentDao {
@@ -17,6 +18,10 @@ interface StudentDao {
     @Query("SELECT * from student")
     fun list(): DataSource.Factory<Int, StudentEntity>
 
+    @Query("SELECT * from student")
+    fun listAll(): Maybe<List<StudentEntity>>
+
     @Query("SELECT * from student where studentId = :studentId")
     fun detail(studentId: String): Flowable<StudentEntity>
+
 }
