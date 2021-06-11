@@ -91,9 +91,10 @@ class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentIt
                 Log.d(TAG, "exportAllDataToCSV: COMPLET ")
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.type = "application/csv"
-                intent.data = FileProvider.getUriForFile(requireContext(), requireContext().applicationContext.packageName + ".provider", File(path))
+                intent.data = FileProvider.getUriForFile(requireContext().applicationContext, requireContext().applicationContext.packageName + ".provider", File(path))
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(intent)
+                requireActivity().finish()
             }
             compositeDisposable.add(disposable)
         } ?: run{
@@ -109,7 +110,7 @@ class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentIt
     private fun canSaveToStorage(): Boolean {
         return REQUIRED_PERMISSIONS.all {
             ContextCompat.checkSelfPermission(
-                    requireContext(),
+                    requireContext().applicationContext,
                     it
             ) == PackageManager.PERMISSION_GRANTED
         }

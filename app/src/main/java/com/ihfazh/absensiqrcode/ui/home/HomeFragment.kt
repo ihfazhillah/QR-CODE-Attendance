@@ -10,35 +10,37 @@ import com.ihfazh.absensiqrcode.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var binding: FragmentHomeBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAbsen.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToCameraQrCodeFragment()
-            view.findNavController().navigate(action)
-        }
 
-        binding.fab.setOnClickListener {
-            PopupMenu(this.context, it).apply {
-                setOnMenuItemClickListener { menuItem ->
-                    val id = menuItem.itemId
-                    when (id) {
-                        R.id.add_student -> {
-                            val action =
-                                HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
-                            view.findNavController().navigate(action)
+        binding?.let {
+            it.btnAbsen.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToCameraQrCodeFragment()
+                view.findNavController().navigate(action)
+            }
+                it.fab.setOnClickListener {
+                PopupMenu(requireContext().applicationContext, it).apply {
+                    setOnMenuItemClickListener { menuItem ->
+                        val id = menuItem.itemId
+                        when (id) {
+                            R.id.add_student -> {
+                                val action =
+                                    HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
+                                view.findNavController().navigate(action)
+                            }
+                            R.id.add_event -> {
+                                val action =
+                                    HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
+                                view.findNavController().navigate(action)
+                            }
                         }
-                        R.id.add_event -> {
-                            val action =
-                                HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
-                            view.findNavController().navigate(action)
-                        }
+                        true
                     }
-                    true
+                    inflate(R.menu.add_menu)
+                    show()
                 }
-                inflate(R.menu.add_menu)
-                show()
             }
         }
     }
@@ -46,11 +48,11 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
-        return binding.root
+        return binding?.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -73,5 +75,10 @@ class HomeFragment : Fragment() {
 
     companion object {
         const val TAG = "HomeFragment"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
