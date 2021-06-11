@@ -2,14 +2,15 @@ package com.ihfazh.absensiqrcode.ui.liststudents
 
 import Event.Student
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentListStudentBinding
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentItemClicked {
@@ -81,21 +83,22 @@ class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentIt
     }
 
     private fun exportAllDataToCSV() {
-        // run in the separated thread
-        Log.d(TAG, """
-        ${requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.path}
-        """.trimIndent())
-
         requireContext().getExternalFilesDir(null)?.let{ downloadFile ->
-            val disposable = viewModel.exportStudentsData(downloadFile.path + "/testing.csv")
+            val path = downloadFile.absolutePath + "/testing.csv"
+            val disposable = viewModel.exportStudentsData(path)
             {
+                // https://stackoverflow.com/questions/56598480/couldnt-find-meta-data-for-provider-with-authority
                 Log.d(TAG, "exportAllDataToCSV: COMPLET ")
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.type = "application/csv"
+                intent.data = FileProvider.getUriForFile(requireContext(), requireContext().applicationContext.packageName + ".provider", File(path))
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                startActivity(intent)
             }
             compositeDisposable.add(disposable)
         } ?: run{
             Log.d(TAG, "exportAllDataToCSV: something wrong")
         }
-
     }
 
     companion object {
