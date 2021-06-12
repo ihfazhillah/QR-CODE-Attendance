@@ -42,8 +42,16 @@ class HomeFragment : Fragment() {
                     show()
                 }
             }
+
+//            setupEventFragment(it)
         }
     }
+
+//    private fun setupEventFragment(binding: FragmentHomeBinding) {
+//        activity?.supportFragmentManager?.beginTransaction()
+//                ?.add(binding.fragmentEvents.id, ListEventFragment())
+//                ?.commit()
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

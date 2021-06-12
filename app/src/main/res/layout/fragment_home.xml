@@ -16,6 +16,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/history_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/events"
+        app:layout_constraintTop_toBottomOf="@id/btn_absen"
+        style="@style/Theme.AbsensiQRCode.H1"
+        />
+
+    <View
+        android:id="@+id/events_divider"
+        app:layout_constraintTop_toBottomOf="@id/history_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Theme.AbsensiQRCode.Divider"/>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/events_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:name="com.ihfazh.absensiqrcode.ui.listevent.ListEventFragment"
+        android:id="@+id/fragment_events"
+        style="@style/Theme.AbsensiQRCode.MarginStartEnd"
+        />
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
