@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.absensiqrcode.databinding.SimpleListItemBinding
 import com.ihfazh.absensiqrcode.domains.events.models.Event
 
+typealias ClickHandler = (item: Event?) -> Unit
+
 class ListEventAdapter : PagingDataAdapter<Event, ListEventAdapter.ListEventViewHolder>(DIFF_UTIL) {
 
     companion object {
@@ -35,9 +37,22 @@ class ListEventAdapter : PagingDataAdapter<Event, ListEventAdapter.ListEventView
     }
 
 
+
+    private var onItemClicked : ClickHandler? = null
+    fun setOnItemClicked(onItemClicked: ((item: Event?) -> Unit)?){
+        this.onItemClicked = onItemClicked
+    }
+
+
     override fun onBindViewHolder(holder: ListEventViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener{
+            if (item != null){
+                onItemClicked?.invoke(item)
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListEventViewHolder {

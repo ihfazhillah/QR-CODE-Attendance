@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Students Attendance</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="absen_siswa">Absen Siswa</string>
     <string name="selesai">Selesai</string>
     <string name="student">Student</string>
@@ -16,5 +14,6 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="events">Events</string>
-    <string name="more">More...</string>
+    <string name="more">More…</string>
+    <string name="no_histories">Ups, no histories recorded.</string>
 </resources>
