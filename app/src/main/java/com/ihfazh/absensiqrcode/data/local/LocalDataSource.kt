@@ -1,6 +1,7 @@
 package com.ihfazh.absensiqrcode.data.local
 
 import com.ihfazh.absensiqrcode.data.local.database.AppDatabase
+import com.ihfazh.absensiqrcode.data.local.entity.AttendanceEntity
 import com.ihfazh.absensiqrcode.data.local.entity.EventEntity
 import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
 import javax.inject.Inject
@@ -17,4 +18,5 @@ class LocalDataSource @Inject constructor(private val database: AppDatabase) {
     fun deleteEvent(eventEntity: EventEntity) = database.eventDao().delete(eventEntity)
     fun listEvent() = database.eventDao().list()
     fun eventDetail(eventId: String) = database.eventDao().detail(eventId)
+    fun addStudentAttendance(attendanceEntity: AttendanceEntity) = database.attendanceDao().insert(attendanceEntity)
 }

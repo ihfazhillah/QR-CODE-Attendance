@@ -1,7 +1,10 @@
 package com.ihfazh.absensiqrcode.di.modules
 
+import com.ihfazh.absensiqrcode.data.repositories.AttendanceRepository
 import com.ihfazh.absensiqrcode.data.repositories.EventRepository
 import com.ihfazh.absensiqrcode.data.repositories.StudentRepository
+import com.ihfazh.absensiqrcode.domains.attendances.usecases.AttendanceInteractor
+import com.ihfazh.absensiqrcode.domains.attendances.usecases.AttendanceUseCase
 import com.ihfazh.absensiqrcode.domains.events.usecases.EventInteractor
 import com.ihfazh.absensiqrcode.domains.events.usecases.EventUseCase
 import com.ihfazh.absensiqrcode.domains.students.usecases.StudentInteractor
@@ -24,4 +27,9 @@ class InteractorModule {
     @Provides
     fun provideEventUseCase(eventRepository: EventRepository): EventUseCase =
         EventInteractor(eventRepository)
+
+    @ExperimentalCoroutinesApi
+    @Provides
+    fun provideAttendanceUseCase(repository: AttendanceRepository): AttendanceUseCase = AttendanceInteractor(repository)
+
 }

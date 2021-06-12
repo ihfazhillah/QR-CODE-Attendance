@@ -16,4 +16,5 @@ import com.ihfazh.absensiqrcode.data.local.entity.StudentEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun studentDao(): StudentDao
     abstract fun eventDao(): EventDao
+    abstract fun attendanceDao(): AttendanceDao
 }

@@ -15,16 +15,18 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.mlkit.vision.barcode.Barcode
 import com.ihfazh.absensiqrcode.databinding.FragmentCameraQrCodeBinding
+import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import com.ihfazh.absensiqrcode.ui.detailevent.DetailEventViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class CameraQrCodeFragment : Fragment() {
+@AndroidEntryPoint
+class CameraQrCodeFragment : DisposableFragment() {
 
     private lateinit var cameraExecutor: ExecutorService
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
@@ -37,6 +39,7 @@ class CameraQrCodeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(TAG, "onCreateView: ini kontener ${container.toString()}")
         binding = FragmentCameraQrCodeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -195,9 +198,15 @@ class CameraQrCodeFragment : Fragment() {
 
         with(binding.bottomSheet) {
             selesai.setOnClickListener {
-                val action =
-                    CameraQrCodeFragmentDirections.actionCameraQrCodeFragmentToHomeFragment()
-                view.findNavController().navigate(action)
+                val disposable = viewModel.addStudentAttendance()?.let {
+                    it.subscribe{
+                    }
+                }
+
+                disposable?.let {
+                    compositeDisposable.add(it)
+                }
+
 
             }
         }
