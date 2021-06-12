@@ -16,10 +16,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.let {
-            it.btnAbsen.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToCameraQrCodeFragment()
-                view.findNavController().navigate(action)
-            }
+//            it.btnAbsen.setOnClickListener {
+//                val action = HomeFragmentDirections.actionHomeFragmentToCameraQrCodeFragment()
+//                view.findNavController().navigate(action)
+//            }
                 it.fab.setOnClickListener {
                 PopupMenu(requireContext().applicationContext, it).apply {
                     setOnMenuItemClickListener { menuItem ->
