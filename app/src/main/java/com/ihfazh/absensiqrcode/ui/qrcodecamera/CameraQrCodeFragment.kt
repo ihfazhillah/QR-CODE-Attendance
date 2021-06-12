@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.mlkit.vision.barcode.Barcode
 import com.ihfazh.absensiqrcode.databinding.FragmentCameraQrCodeBinding
+import com.ihfazh.absensiqrcode.ui.detailevent.DetailEventViewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -29,7 +30,7 @@ class CameraQrCodeFragment : Fragment() {
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     private lateinit var imageCapture: ImageCapture
     private lateinit var binding: FragmentCameraQrCodeBinding
-    private val viewModel: QRCodeViewModel by viewModels()
+    private val viewModel: DetailEventViewModel by viewModels({requireParentFragment()})
 
 
     override fun onCreateView(
@@ -65,8 +66,15 @@ class CameraQrCodeFragment : Fragment() {
                 imageAnalyzer.setAnalyzer(cameraExecutor, QrCodeAnalysis(object :
                     QrCodeAnalysis.QRCodeListener {
                     override fun setResult(barcode: Barcode) {
-                        Log.d(TAG, "setResult: ssss ${barcode.rawValue}")
-                        viewModel.result.value = barcode.rawValue
+                        val value = barcode.rawValue
+                        value?.let {
+                           if (it.startsWith("attendanceqrcode")) {
+                               val studentId = it.replace("attendanceqrcode.", "")
+                               viewModel.setStudentId(studentId)
+                           } else {
+                               viewModel.setStudentId("")
+                           }
+                        } ?: viewModel.setStudentId("")
                     }
                 }))
 
@@ -159,14 +167,15 @@ class CameraQrCodeFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.result.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.bottomSheet.result.text = it
+        viewModel.studentDetail.observe(viewLifecycleOwner){
+            if (it != null){
+                binding.bottomSheet.result.text = "Student Found\n${it.firstName} ${it.lastName}"
             } else {
-                binding.bottomSheet.result.text = "NO RESULT"
+                binding.bottomSheet.result.text = "No Result"
             }
         }
 
