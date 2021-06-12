@@ -9,4 +9,5 @@ interface EventUseCase {
     fun add(event: Event): Completable
     fun delete(event: Event): Completable
     fun list(): Flowable<PagingData<Event>>
+    fun eventDetail(eventId: String): Flowable<Event>
 }

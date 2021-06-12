@@ -16,4 +16,5 @@ class LocalDataSource @Inject constructor(private val database: AppDatabase) {
     fun addEvent(eventEntity: EventEntity) = database.eventDao().add(eventEntity)
     fun deleteEvent(eventEntity: EventEntity) = database.eventDao().delete(eventEntity)
     fun listEvent() = database.eventDao().list()
+    fun eventDetail(eventId: String) = database.eventDao().detail(eventId)
 }

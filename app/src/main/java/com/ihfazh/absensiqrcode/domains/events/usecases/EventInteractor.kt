@@ -18,4 +18,8 @@ class EventInteractor(private val repository: IEventRepository) : EventUseCase {
     override fun list(): Flowable<PagingData<Event>> {
         return repository.list()
     }
+
+    override fun eventDetail(eventId: String): Flowable<Event> {
+        return repository.eventDetail(eventId)
+    }
 }

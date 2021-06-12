@@ -39,4 +39,10 @@ class EventRepository @Inject constructor(
             }.asPagingSourceFactory(Dispatchers.IO)
         ).flowable
     }
+
+    override fun eventDetail(eventId: String): Flowable<Event> {
+        return localDataSource.eventDetail(eventId).map {
+            Event(it.eventId, it.title, it.description, it.datetime)
+        }
+    }
 }
