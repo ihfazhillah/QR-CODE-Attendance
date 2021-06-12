@@ -34,9 +34,9 @@ class ListEventFragment : Fragment() {
                 it?.run{
 
                     val direction: NavDirections = if (findNavController().currentDestination?.label == "Home"){
-                        HomeFragmentDirections.actionHomeFragmentToDetailEventFragment(eventId)
+                        HomeFragmentDirections.actionHomeFragmentToDetailEventContainerFragment(eventId)
                     } else {
-                        ListEventFragmentDirections.actionListEventFragmentToDetailEventFragment(eventId)
+                        ListEventFragmentDirections.actionListEventFragmentToDetailEventContainerFragment(eventId)
                     }
 
                     findNavController().navigate(direction)

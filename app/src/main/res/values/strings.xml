@@ -16,4 +16,6 @@
     <string name="events">Events</string>
     <string name="more">More…</string>
     <string name="no_histories">Ups, no histories recorded.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

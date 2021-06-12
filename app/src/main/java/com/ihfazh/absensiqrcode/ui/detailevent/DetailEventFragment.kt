@@ -7,15 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.ihfazh.absensiqrcode.databinding.FragmentDetailEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailEventFragment : Fragment() {
     private lateinit var binding: FragmentDetailEventBinding
-    private val viewModel: DetailEventViewModel by viewModels()
-    private val args : DetailEventFragmentArgs by navArgs()
+    private val viewModel: DetailEventViewModel by viewModels({requireParentFragment()})
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +29,6 @@ class DetailEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setEventId(args.eventId)
         viewModel.eventDetail.observe(viewLifecycleOwner){
             binding.eventTitle.text = it.title
             binding.eventDescription.text = it.description

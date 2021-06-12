@@ -42,8 +42,8 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_homeFragment_to_detailEventFragment"
-            app:destination="@id/detailEventFragment" />
+            android:id="@+id/action_homeFragment_to_detailEventContainerFragment"
+            app:destination="@id/detailEventContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraQrCodeFragment"
@@ -86,8 +86,8 @@
         android:label="List Event"
         tools:layout="@layout/fragment_list_event" >
         <action
-            android:id="@+id/action_listEventFragment_to_detailEventFragment"
-            app:destination="@id/detailEventFragment" />
+            android:id="@+id/action_listEventFragment_to_detailEventContainerFragment"
+            app:destination="@id/detailEventContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailStudentFragment"
@@ -99,11 +99,12 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/detailEventFragment"
-        android:name="com.ihfazh.absensiqrcode.ui.detailevent.DetailEventFragment"
-        tools:layout="@layout/fragment_detail_event">
+        android:id="@+id/detailEventContainerFragment"
+        android:name="com.ihfazh.absensiqrcode.ui.detaileventcontainer.DetailEventContainerFragment"
+        android:label="fragment_detail_event_container"
+        tools:layout="@layout/fragment_detail_event_container" >
         <argument
-            android:name="event_id"
+            android:name="eventId"
             app:argType="string" />
     </fragment>
 </navigation>
