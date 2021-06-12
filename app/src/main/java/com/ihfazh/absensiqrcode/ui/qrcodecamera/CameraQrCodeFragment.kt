@@ -153,9 +153,7 @@ class CameraQrCodeFragment : Fragment() {
                     "Permissions not granted by the user.",
                     Toast.LENGTH_LONG
                 ).show()
-                val action =
-                    CameraQrCodeFragmentDirections.actionCameraQrCodeFragmentToHomeFragment()
-                requireView().findNavController().navigate(action)
+                requireView().findNavController().navigateUp()
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
