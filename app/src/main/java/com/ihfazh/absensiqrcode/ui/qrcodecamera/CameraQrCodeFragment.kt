@@ -40,7 +40,9 @@ class CameraQrCodeFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("RestrictedApi", "NewApi", "UnsafeExperimentalUsageError")
+    @SuppressLint("RestrictedApi", "NewApi", "UnsafeExperimentalUsageError",
+        "UnsafeOptInUsageError"
+    )
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener(
@@ -83,7 +85,7 @@ class CameraQrCodeFragment : Fragment() {
                 try {
                     cameraProvider.unbindAll()
                     cameraProvider.bindToLifecycle(
-                        this, cameraSelector, useCaseGroup
+                        viewLifecycleOwner, cameraSelector, useCaseGroup
                     )
 //                    cameraProvider.bindToLifecycle(
 //                            this, cameraSelector, preview, imageAnalyzer
@@ -106,10 +108,34 @@ class CameraQrCodeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (allPermissionGranted()) {
+            startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSION
+            )
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
+        teardownCamera()
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun teardownCamera() {
+        // https://github.com/android/camera-samples/issues/94
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            cameraProvider.shutdown()
+        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
 
@@ -147,15 +173,15 @@ class CameraQrCodeFragment : Fragment() {
         }
 
 
-        if (allPermissionGranted()) {
-            startCamera()
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                REQUIRED_PERMISSIONS,
-                REQUEST_CODE_PERMISSION
-            )
-        }
+//        if (allPermissionGranted()) {
+//            startCamera()
+//        } else {
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                REQUIRED_PERMISSIONS,
+//                REQUEST_CODE_PERMISSION
+//            )
+//        }
 
 
         cameraExecutor = Executors.newSingleThreadExecutor()
