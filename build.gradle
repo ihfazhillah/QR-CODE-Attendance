@@ -12,7 +12,7 @@ buildscript {
     ext.rx_kotlin_version = "2.4.0"
     ext.rx_android_version = "2.1.1"
     ext.paging_version = "3.0.0"
-    ext.room_version = "2.3.0"
+    ext.room_version = "2.4.0-alpha02"
     ext.rx_binding_version = "2.2.0"
 
     ext.hilt_classpath_version = "2.33-beta"
