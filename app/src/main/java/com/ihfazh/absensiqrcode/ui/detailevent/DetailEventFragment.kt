@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihfazh.absensiqrcode.databinding.FragmentDetailEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,6 +34,16 @@ class DetailEventFragment : Fragment() {
             binding.eventTitle.text = it.title
             binding.eventDescription.text = it.description
             (requireActivity() as AppCompatActivity).supportActionBar?.title = it.title
+        }
+
+        val historiesAdapter = HistoriesAdapter()
+        with(binding.rvHistories){
+            adapter = historiesAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        viewModel.studentsList.observe(viewLifecycleOwner){
+            historiesAdapter.submitData(lifecycle, it)
         }
     }
 

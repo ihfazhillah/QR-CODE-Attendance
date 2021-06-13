@@ -1,10 +1,9 @@
 package com.ihfazh.absensiqrcode.ui.detailevent
 
-import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import androidx.paging.PagingData
 import com.ihfazh.absensiqrcode.domains.attendances.Attendance
+import com.ihfazh.absensiqrcode.domains.attendances.models.StudentAttendance
 import com.ihfazh.absensiqrcode.domains.attendances.usecases.AttendanceUseCase
 import com.ihfazh.absensiqrcode.domains.events.usecases.EventUseCase
 import com.ihfazh.absensiqrcode.domains.students.usecases.StudentUseCase
@@ -49,6 +48,10 @@ class DetailEventViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
         }
         return null
+    }
+
+    val studentsList: LiveData<PagingData<StudentAttendance>> = Transformations.switchMap(eventId){
+        LiveDataReactiveStreams.fromPublisher(attendanceUseCase.getHistoriesByEvent(it))
     }
 
 }
