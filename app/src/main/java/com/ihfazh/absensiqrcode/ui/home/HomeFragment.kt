@@ -1,10 +1,13 @@
 package com.ihfazh.absensiqrcode.ui.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentHomeBinding
 
@@ -43,6 +46,16 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            it.cardEvents.setOnClickListener{
+                val direction = HomeFragmentDirections.actionHomeFragmentToListEventFragment()
+                findNavController().navigate(direction)
+            }
+
+            it.cardStudents.setOnClickListener {
+                val direction = HomeFragmentDirections.actionHomeFragmentToListStudentFragment2()
+                findNavController().navigate(direction)
+            }
+
 //            setupEventFragment(it)
         }
     }
@@ -59,27 +72,27 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
+//        setHasOptionsMenu(true)
         return binding?.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        view?.let {
-            when (item.itemId) {
-                R.id.student_list -> it.findNavController()
-                    .navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
-                R.id.event_list -> it.findNavController()
-                    .navigate(HomeFragmentDirections.actionHomeFragmentToListEventFragment())
-            }
-
-        }
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.main_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        view?.let {
+//            when (item.itemId) {
+//                R.id.student_list -> it.findNavController()
+//                    .navigate(HomeFragmentDirections.actionHomeFragmentToListStudentFragment2())
+//                R.id.event_list -> it.findNavController()
+//                    .navigate(HomeFragmentDirections.actionHomeFragmentToListEventFragment())
+//            }
+//
+//        }
+//        return true
+//    }
 
     companion object {
         const val TAG = "HomeFragment"

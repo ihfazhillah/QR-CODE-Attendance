@@ -16,7 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-        -->
 
     <TextView
         android:id="@+id/history_title"
@@ -45,6 +44,50 @@
         android:id="@+id/fragment_events"
         style="@style/Theme.AbsensiQRCode.MarginStartEnd"
         />
+
+
+        -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_events"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="5dp"
+        android:clickable="true"
+        android:elevation="12dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/card_students"
+        app:layout_constraintStart_toEndOf="@+id/card_students"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/events_card"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_students"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:elevation="12dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintTop_toTopOf="@id/card_events"
+        app:layout_constraintBottom_toBottomOf="@id/card_events"
+        app:layout_constraintStart_toEndOf="@id/card_events"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <include layout="@layout/students_card"/>
+
+    </androidx.cardview.widget.CardView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
