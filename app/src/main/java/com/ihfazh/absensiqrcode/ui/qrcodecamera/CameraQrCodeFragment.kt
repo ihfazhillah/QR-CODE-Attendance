@@ -11,12 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.google.mlkit.vision.barcode.Barcode
 import com.ihfazh.absensiqrcode.databinding.FragmentCameraQrCodeBinding
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
@@ -30,8 +29,6 @@ import java.util.concurrent.Executors
 class CameraQrCodeFragment : DisposableFragment() {
 
     private lateinit var cameraExecutor: ExecutorService
-    private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-    private lateinit var imageCapture: ImageCapture
     private lateinit var binding: FragmentCameraQrCodeBinding
     private val viewModel: DetailEventViewModel by viewModels({requireParentFragment()})
 
@@ -40,7 +37,6 @@ class CameraQrCodeFragment : DisposableFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d(TAG, "onCreateView: ini kontener ${container.toString()}")
         binding = FragmentCameraQrCodeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -99,9 +95,6 @@ class CameraQrCodeFragment : DisposableFragment() {
                     cameraProvider.bindToLifecycle(
                         viewLifecycleOwner, cameraSelector, useCaseGroup
                     )
-//                    cameraProvider.bindToLifecycle(
-//                            this, cameraSelector, preview, imageAnalyzer
-//                    )
                 } catch (e: Exception) {
                     Log.e(TAG, "Usecase binding failed", e)
                 }
@@ -125,11 +118,7 @@ class CameraQrCodeFragment : DisposableFragment() {
         if (allPermissionGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                REQUIRED_PERMISSIONS,
-                REQUEST_CODE_PERMISSION
-            )
+            requestPermissionContract.launch(Manifest.permission.CAMERA)
         }
     }
 
@@ -151,25 +140,6 @@ class CameraQrCodeFragment : DisposableFragment() {
     }
 
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_CODE_PERMISSION) {
-            if (allPermissionGranted()) {
-                startCamera()
-            } else {
-                Toast.makeText(
-                    requireActivity(),
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_LONG
-                ).show()
-                requireView().findNavController().navigateUp()
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -182,18 +152,6 @@ class CameraQrCodeFragment : DisposableFragment() {
                 binding.bottomSheet.result.text = "No Result"
             }
         }
-
-
-//        if (allPermissionGranted()) {
-//            startCamera()
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                requireActivity(),
-//                REQUIRED_PERMISSIONS,
-//                REQUEST_CODE_PERMISSION
-//            )
-//        }
-
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -216,7 +174,20 @@ class CameraQrCodeFragment : DisposableFragment() {
     }
 
     companion object {
-        const val REQUEST_CODE_PERMISSION = 10
         const val TAG = "CAMERAQRCODE"
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    }
+
+    private val requestPermissionContract = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) {
+            startCamera()
+        } else {
+            Toast.makeText(
+                    requireActivity(),
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_LONG
+            ).show()
+            (requireParentFragment() as DetailEventContainerFragment).goToPage(0)
+        }
     }
 }
