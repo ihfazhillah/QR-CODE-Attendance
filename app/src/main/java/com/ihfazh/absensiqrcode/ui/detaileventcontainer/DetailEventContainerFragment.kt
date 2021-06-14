@@ -39,6 +39,7 @@ class DetailEventContainerFragment : Fragment() {
         with(binding.viewPager){
             adapter = ViewPagerAdapter(this@DetailEventContainerFragment)
         }
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager){
             tab, position ->
                 tab.text = if (position == 0){
@@ -47,6 +48,10 @@ class DetailEventContainerFragment : Fragment() {
                     "Scan"
                 }
         }.attach()
+    }
+
+    fun goToPage(page: Int){
+        binding.viewPager.currentItem = page
     }
 
     companion object {

@@ -21,6 +21,7 @@ import com.google.mlkit.vision.barcode.Barcode
 import com.ihfazh.absensiqrcode.databinding.FragmentCameraQrCodeBinding
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
 import com.ihfazh.absensiqrcode.ui.detailevent.DetailEventViewModel
+import com.ihfazh.absensiqrcode.ui.detaileventcontainer.DetailEventContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -200,6 +201,8 @@ class CameraQrCodeFragment : DisposableFragment() {
             selesai.setOnClickListener {
                 val disposable = viewModel.addStudentAttendance()?.let {
                     it.subscribe{
+                        Toast.makeText(requireContext(), "Student added successfully.", Toast.LENGTH_SHORT).show()
+                        (requireParentFragment() as DetailEventContainerFragment).goToPage(0)
                     }
                 }
 
