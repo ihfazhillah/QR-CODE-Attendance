@@ -6,36 +6,50 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var binding: FragmentHomeBinding? = null
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getCount().observe(viewLifecycleOwner){ count ->
+                binding?.let{ homeBinding ->
+                    val event = count.event
+                    val student = count.student
+                    if (event != null && student != null){
+                        homeBinding.cardContent.subtitle.text = getString(R.string.subtitle_top_card, event, student)
+                    }
+
+                }
+        }
+
         binding?.let {
-//            it.btnAbsen.setOnClickListener {
-//                val action = HomeFragmentDirections.actionHomeFragmentToCameraQrCodeFragment()
-//                view.findNavController().navigate(action)
-//            }
-                it.fab.setOnClickListener {
+
+//            it.cardContent.subtitle.text = getString(R.string.subtitle_top_card, 10, 20)
+
+            it.cardContent.addButton.setOnClickListener {
                 PopupMenu(requireContext().applicationContext, it).apply {
                     setOnMenuItemClickListener { menuItem ->
                         val id = menuItem.itemId
                         when (id) {
                             R.id.add_student -> {
                                 val action =
-                                    HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
+                                        HomeFragmentDirections.actionHomeFragmentToAddStudentFragment()
                                 view.findNavController().navigate(action)
                             }
                             R.id.add_event -> {
                                 val action =
-                                    HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
+                                        HomeFragmentDirections.actionHomeFragmentToAddEventFragment()
                                 view.findNavController().navigate(action)
                             }
                         }

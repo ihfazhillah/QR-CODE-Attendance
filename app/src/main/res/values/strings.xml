@@ -18,4 +18,7 @@
     <string name="no_histories">Ups, no histories recorded.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi_teacher">Hi Teacher…</string>
+    <string name="add_more">Add More</string>
+    <string name="subtitle_top_card">You have %1$d events and %2$d students.</string>
 </resources>
