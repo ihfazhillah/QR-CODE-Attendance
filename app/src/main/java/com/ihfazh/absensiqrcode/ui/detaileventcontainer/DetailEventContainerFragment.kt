@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihfazh.absensiqrcode.databinding.FragmentDetailEventContainerBinding
 import com.ihfazh.absensiqrcode.ui.detailevent.DetailEventViewModel
@@ -38,6 +40,7 @@ class DetailEventContainerFragment : Fragment() {
 
         with(binding.viewPager){
             adapter = ViewPagerAdapter(this@DetailEventContainerFragment)
+            reduceDragSensitifity()
         }
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager){
@@ -57,4 +60,15 @@ class DetailEventContainerFragment : Fragment() {
     companion object {
         const val TAG = "Detail Event Container"
     }
+}
+
+private fun ViewPager2.reduceDragSensitifity() {
+    val recyclerViewField = ViewPager2::class.java.getDeclaredField("mRecyclerView")
+    recyclerViewField.isAccessible = true
+    val recyclerView = recyclerViewField.get(this) as RecyclerView
+
+    val touchSlopField = RecyclerView::class.java.getDeclaredField("mTouchSlop")
+    touchSlopField.isAccessible = true
+    val touchSlop = touchSlopField.get(recyclerView) as Int
+    touchSlopField.set(recyclerView, touchSlop*8)       // "8" was obtained experimentally
 }
