@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ihfazh.absensiqrcode.databinding.SimpleListItemBinding
+import com.bumptech.glide.Glide
+import com.ihfazh.absensiqrcode.databinding.CardStudentItemBinding
+import net.glxn.qrgen.android.QRCode
 
 class ListStudentAdapter :
     PagingDataAdapter<Student, ListStudentAdapter.StudentItemViewHolder>(DIFF_CALLBACK) {
@@ -28,11 +30,16 @@ class ListStudentAdapter :
         fun onItemClicked(student: Student)
     }
 
-    class StudentItemViewHolder(val binding: SimpleListItemBinding) :
+    class StudentItemViewHolder(val binding: CardStudentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Student?) {
             item?.let {
-                binding.itemText.text = it.firstName
+                binding.text.text = "${it.firstName} ${it.lastName}"
+                val code = "attendanceqrcode.${it.studentId}"
+                Glide.with(binding.root)
+                        .load(QRCode.from(code).bitmap())
+
+                        .into(binding.qrcode)
             }
         }
 
@@ -51,7 +58,7 @@ class ListStudentAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = SimpleListItemBinding.inflate(inflater, parent, false)
+        val binding = CardStudentItemBinding.inflate(inflater, parent, false)
         return StudentItemViewHolder(binding)
     }
 }

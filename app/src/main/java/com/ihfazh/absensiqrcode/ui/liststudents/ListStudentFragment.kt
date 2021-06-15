@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ihfazh.absensiqrcode.R
 import com.ihfazh.absensiqrcode.databinding.FragmentListStudentBinding
 import com.ihfazh.absensiqrcode.ui.DisposableFragment
@@ -52,7 +52,7 @@ class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentIt
         }
         with(binding.rvStudents) {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2)
         }
 
         viewModel.getStudents().observe(viewLifecycleOwner) {
