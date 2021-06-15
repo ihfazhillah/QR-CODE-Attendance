@@ -27,10 +27,22 @@
         tools:text="Ini adalah warisan menggunakan rohabiyyah. Mudah dihafalkan dan juga mudah dicerna."
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="@string/record_attendance_batch"
+        app:layout_constraintTop_toBottomOf="@id/event_description"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/btn_record_attendance_manual"
+        android:textSize="12sp"
+        />
+
     <View
         android:id="@+id/divider"
         style="@style/Theme.AbsensiQRCode.Divider"
-        app:layout_constraintTop_toBottomOf="@id/event_description"
+        app:layout_constraintTop_toBottomOf="@id/btn_record_attendance_manual"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
