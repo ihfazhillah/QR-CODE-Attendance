@@ -108,7 +108,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
-    implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.15.2'
+    // for now, not it's not used. Maybe will use it for export data / backup data
+    // let's see.
+//    implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.15.2'
 
     // work manager
 //    implementation "androidx.work:work-runtime-ktx:$workmanager_version"

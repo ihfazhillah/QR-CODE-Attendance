@@ -84,13 +84,13 @@ class ListStudentFragment : DisposableFragment(), ListStudentAdapter.OnStudentIt
 
     private fun exportAllDataToCSV() {
         requireContext().getExternalFilesDir(null)?.let{ downloadFile ->
-            val path = downloadFile.absolutePath + "/testing.csv"
+            val path = downloadFile.absolutePath + "/testing.pdf"
             val disposable = viewModel.exportStudentsData(path)
             {
                 // https://stackoverflow.com/questions/56598480/couldnt-find-meta-data-for-provider-with-authority
                 Log.d(TAG, "exportAllDataToCSV: COMPLET ")
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.type = "application/csv"
+                intent.type = "application/pdf"
                 intent.data = FileProvider.getUriForFile(requireContext().applicationContext, requireContext().applicationContext.packageName + ".provider", File(path))
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(intent)
